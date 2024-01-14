@@ -2,7 +2,7 @@
 
 `npm install`
 
-- react-redux @redux/toolkit
+- react-redux @reduxjs/toolkit
 - react-icons
 - react-router-dom
 - framer-motion
