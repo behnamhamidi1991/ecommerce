@@ -30,5 +30,15 @@ export const data = {
       numReviews: 10,
       description: "This comes from Brazil",
     },
+    {
+      id: "4",
+      name: "Cupoccino",
+      image: "/p3.jpg",
+      price: 22,
+      countInStock: 10,
+      rating: 6,
+      numReviews: 10,
+      description: "This comes from Brazil",
+    },
   ],
 };
