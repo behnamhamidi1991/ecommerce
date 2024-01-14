@@ -58,6 +58,7 @@ export default function CartSidebar() {
                   onChange={(e) =>
                     addToCartHandler(item, Number(e.target.value))
                   }
+                  className="bg-gray-800"
                 >
                   {[...Array(item.countInStock).keys()].map((x) => (
                     <option key={x + 1} value={x + 1}>
