@@ -1,4 +1,4 @@
-57:00
+1:02:00
 
 Start with the creating of the Cart component
 This must lead to make a perfect ecommerece next.js project.
