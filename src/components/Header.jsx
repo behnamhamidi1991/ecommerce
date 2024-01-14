@@ -1,7 +1,9 @@
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { loading, cartItems } = useSelector((state) => state.cart);
   return (
     <header>
       <nav className="flex justify-between items-center h-12 px-4 shadow-md bg-gray-800 text-white">
@@ -9,7 +11,9 @@ export default function Header() {
           Amazon Shopping Cart
         </Link>
         <div>
-          <span className="cart-badge">0</span>
+          <span className="cart-badge">
+            {loading ? "" : cartItems.reduce((a, c) => a + c.qty, 0)}
+          </span>
           <Link href="/cart">Cart</Link>
         </div>
       </nav>
