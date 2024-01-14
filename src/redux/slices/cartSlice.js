@@ -7,6 +7,7 @@ const initialState = Cookies.get("cart")
       loading: true,
       showSidebar: false,
       cartItems: [],
+      shippingAddress: {},
     };
 
 const addDecimals = (num) => {
@@ -56,12 +57,17 @@ const cartSlice = createSlice({
       );
       Cookies.set("cart", JSON.stringify(state));
     },
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload;
+      Cookies.set("cart", JSON.stringify(state));
+    },
     hideLoading: (state) => {
       state.loading = false;
     },
   },
 });
 
-export const { addToCart, removeFromCart, hideLoading } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, hideLoading } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
