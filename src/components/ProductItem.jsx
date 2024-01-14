@@ -20,7 +20,7 @@ export default function ProductItem({ product }) {
           <h2 className="text-lg">{product.name}</h2>
         </Link>
         <ProductRate rate={product.rating} count={product.numReviews} />
-        <p className="mb-2">{product.brand}</p>
+        <p className="mb-2">${product.price}</p>
         <button>Add to Cart</button>
       </div>
     </div>
