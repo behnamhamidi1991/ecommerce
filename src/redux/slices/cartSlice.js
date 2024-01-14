@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookies";
+import Cookies from "js-cookie";
 
 const initialState = {
   loading: true,
@@ -36,7 +36,7 @@ const cartSlice = createSlice({
           Number(state.shippingPrice) +
           Number(state.taxPrice)
       );
-      Cookies.set("cart", Json.stringify(state));
+      Cookies.set("cart", JSON.stringify(state));
     },
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter((x) => x.id !== action.payload);
@@ -51,7 +51,7 @@ const cartSlice = createSlice({
           Number(state.shippingPrice) +
           Number(state.taxPrice)
       );
-      Cookies.set("cart", Json.stringify(state));
+      Cookies.set("cart", JSON.stringify(state));
     },
     hideLoading: (state) => {
       state.loading = false;

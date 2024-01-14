@@ -1,7 +1,7 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 import { addToCart } from "@/redux/slices/cartSlice";
 
 export default function AddToCart({
@@ -16,7 +16,7 @@ export default function AddToCart({
   const router = useRouter();
   const [qty, setQty] = useState(1);
 
-  const addToCartHandler = async () => {
+  const addToCartHandler = () => {
     let newQty = qty;
     if (increasePerClick) {
       const existItem = cartItems.find((x) => x.id === product.id);
@@ -33,5 +33,34 @@ export default function AddToCart({
     if (redirect) router.push("/cart");
   };
 
-  return <button>Add To Cart</button>;
+  return (
+    <>
+      {product.countInStock > 0 && showQty && (
+        <div className="mb-2 flex justify-between">
+          <div>Qty</div>
+          <div>
+            <select
+              value={qty}
+              onChange={(e) => setQty(Number(e.target.value))}
+            >
+              {[...Array(product.countInStock).keys()].map((x) => (
+                <option key={x + 1} value={x + 1}>
+                  {x + 1}
+                </option>
+              ))}
+            </select>{" "}
+          </div>
+        </div>
+      )}
+      <div>
+        {product.countInStock > 0 ? (
+          <button className="primary-button w-full" onClick={addToCartHandler}>
+            Add to cart
+          </button>
+        ) : (
+          <button disabled>Out of stock</button>
+        )}
+      </div>
+    </>
+  );
 }
