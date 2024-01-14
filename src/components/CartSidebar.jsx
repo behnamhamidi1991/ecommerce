@@ -1,10 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
+import { addToCart, removeFromCart } from "@/redux/slices/cartSlice";
 
 export default function CartSidebar() {
   const { loading, cartItems, itemsPrice } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (product, qty) => {
+    dispatch(addToCart({ ...product, qty }));
+  };
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <div className="fixed top-0 right-0 w-38 h-full shadow-lg border-l border-l-gray-700 overflow-scroll">
@@ -42,6 +53,24 @@ export default function CartSidebar() {
                     className="p-1"
                   ></Image>
                 </Link>
+                <select
+                  value={item.qty}
+                  onChange={(e) =>
+                    addToCartHandler(item, Number(e.target.value))
+                  }
+                >
+                  {[...Array(item.countInStock).keys()].map((x) => (
+                    <option key={x + 1} value={x + 1}>
+                      {x + 1}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="default-button mt-2"
+                  onClick={() => removeFromCartHandler(item.id)}
+                >
+                  Delete
+                </button>
               </div>
             ))}
           </div>
