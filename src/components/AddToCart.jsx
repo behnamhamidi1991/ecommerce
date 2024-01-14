@@ -42,6 +42,7 @@ export default function AddToCart({
             <select
               value={qty}
               onChange={(e) => setQty(Number(e.target.value))}
+              className="bg-gray-800"
             >
               {[...Array(product.countInStock).keys()].map((x) => (
                 <option key={x + 1} value={x + 1}>
