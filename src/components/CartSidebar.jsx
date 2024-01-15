@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
-import Image from "next/image";
 import { addToCart, removeFromCart } from "@/redux/slices/cartSlice";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CartSidebar() {
   const { loading, cartItems, itemsPrice } = useSelector((state) => state.cart);
@@ -17,29 +17,40 @@ export default function CartSidebar() {
     dispatch(removeFromCart(id));
   };
 
+  const pathname = usePathname();
+
   return (
-    <div className="fixed top-0 right-0 w-38 h-full shadow-lg border-l border-l-gray-700 overflow-scroll">
+    <div
+      className={
+        loading
+          ? ""
+          : cartItems.length > 0 &&
+            (pathname === "/" || pathname.indexOf("/product/") >= 0)
+          ? "transitionItem fixed top-0 right-0 w-32 h-full shadow-lg border-l border-l-gary-700 overflow-scroll"
+          : "hidden"
+      }
+    >
       {loading ? (
-        <div className="py-5 px-2">Loading ... </div>
+        <div className="py-5 px-2">Loading...</div>
       ) : cartItems.length === 0 ? (
         <div className="py-5 px-2">Cart is empty</div>
       ) : (
         <>
-          <div className="p-2 flex flex-col items-center border-b border-b-gray-600">
-            <div>Subtotal</div>
+          <div className="p-2 flex flex-col items-center border-b border-b-gary-600">
+            <div>subtotal</div>
             <div className="font-bold text-orange-700">${itemsPrice}</div>
             <div>
               <Link
                 href="/cart"
-                className="w-full text-center p-1 rounded-2xl border-2"
+                className="w-full text-center p-1  rounded-2xl border-2"
               >
-                Go to Cart
+                Go to cart
               </Link>
             </div>
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="p-2 flex flex-col items-center border-b border-b-gray-600"
+                className="p-2 flex flex-col items-center border-b border-b-gary-600"
               >
                 <Link
                   href={`/product/${item.id}`}
@@ -58,7 +69,6 @@ export default function CartSidebar() {
                   onChange={(e) =>
                     addToCartHandler(item, Number(e.target.value))
                   }
-                  className="bg-gray-800"
                 >
                   {[...Array(item.countInStock).keys()].map((x) => (
                     <option key={x + 1} value={x + 1}>
